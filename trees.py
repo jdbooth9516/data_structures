@@ -41,7 +41,6 @@ class Tree:
 
     def search_tree(self, search):
         end = False
-
         current = self.root
 
         while not end: 
@@ -61,38 +60,25 @@ class Tree:
                     end = True
                     return print("data was not found")
 
+        
+        
+        
 
-    def in_order_traverse(self):
-        #to traverse a tree of unknown size 
+    def in_order_traverse(self, start):
+        #to traverse a tree of unknown size
+       if start:
+           self.in_order_traverse(start.left)
+           print(start.data)
+           self.in_order_traverse(start.right)
 
-        current = self.root
-        previous = None
-        end = False
+    def pre_order(self, start):
 
-        while not end:
-            if current.left is not None:
-                previous = current
-                current = current.left
-
-            elif current == self.root and self.root.left == None and self.root.right != None and self.root.data != None:
-                print( self.root.data)
-                self.root.data = None
-
-                previous = current
-                current = current.right
+        if start: 
+            print(start.data),
+            self.pre_order(start.left)
+            self.pre_order(start.right)
 
 
-            elif self.root.left == None and self.root.right == None:
-                end = True
-
-            else: 
-                print(current.data)
-                if previous.left != None and previous.left.data == current.data:
-                    previous.left = None
-                    current = self.root
-                elif previous.right != None and previous.right.data == current.data:
-                    previous.right = None
-                    current = self.root
 
 
 tree = Tree()
@@ -105,8 +91,11 @@ tree.add_node(17)
 
 tree.add_node(7)
 
-
+print()
 tree.search_tree(17)
+print()
 
-tree_traverse.in_order_traverse()
-print(tree)
+tree_traverse.in_order_traverse(tree.root)
+
+print()
+tree.pre_order(tree.root)
